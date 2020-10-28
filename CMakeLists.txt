@@ -94,10 +94,14 @@ set(Zookeeper_DIR /usr/local/zookeeper)
 # )
 # set(ZKPP_LIB_DEPENDENCIES ${ZKPP_LIB_DEPENDENCIES} ${zookeeper_LIBRARIES})
 
-find_package(Zookeeper REQUIRED MT)
-set(ZKPP_LIB_DEPENDENCIES ${ZKPP_LIB_DEPENDENCIES} ${Zookeeper_LIBRARY_MT})
+find_package(Zookeeper 3.5.8 REQUIRED MT)
+# set(ZKPP_LIB_DEPENDENCIES ${ZKPP_LIB_DEPENDENCIES} ${Zookeeper_MT_LIBRARY})
+set(ZKPP_LIB_DEPENDENCIES ${ZKPP_LIB_DEPENDENCIES} Zookeeper::MT)
 
-include_directories(${Zookeeper_INCLUDE_DIR})
+# include_directories(${Zookeeper_INCLUDE_DIR})
+include_directories(Zookeeper::MT)
+# get_target_property(INC Zookeeper::MT, INTERFACE_INCLUDE_DIRECTORIES)
+# message(STATUS "FUCK ${INC}")
 
 include_directories("${PROJECT_SOURCE_DIR}/src")
 
@@ -223,6 +227,8 @@ if(ZKPP_BUILD_OPTION_CODE_COVERAGE)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
   setup_target_for_coverage(test-coverage zkpp-tests_prog coverage "--gtest_death_test_style=threadsafe")
 endif()
+
+add_subdirectory(tutorial)
 
 ################################################################################
 # Packaging                                                                    #

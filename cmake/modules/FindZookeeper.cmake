@@ -84,14 +84,14 @@ endif()
 
 
 include( FindPackageHandleStandardArgs )
-message(STATUS "${Zookeeper_INCLUDE_DIR} ${Zookeeper_LIBRARY}")
+# message(STATUS "${Zookeeper_INCLUDE_DIR} ${Zookeeper_LIBRARY}")
 
 # find_package_handle_standard_args(Zookeeper  
 #     DEBAULT_MSG
 #     Zookeeper_INCLUDE_DIR Zookeeper_LIBRARY Zookeeper_VERSION
 # ) 
 
-message(STATUS "${Zookeeper_FIND_COMPONENTS}") 
+# message(STATUS "${Zookeeper_FIND_COMPONENTS}") 
 find_package_handle_standard_args(Zookeeper  
     FOUND_VAR Zookeeper_FOUND
     REQUIRED_VARS Zookeeper_INCLUDE_DIR Zookeeper_LIBRARY
@@ -103,7 +103,7 @@ find_package_handle_standard_args(Zookeeper
 
 
 if(Zookeeper_FOUND)
-    message(STATUS "Zookeeper:${Zookeeper_INCLUDE_DIR}")
+    # message(STATUS "Zookeeper:${Zookeeper_INCLUDE_DIR}")
     set(Zookeeper_LIBRARIES ${Zookeeper_LIBRARY})
     set(Zookeeper_INCLUDE_DIRS ${Zookeeper_INCLUDE_DIR})
     # set(Zookeeper_DEFINITIONS ${PC_Zookeeper_CFLAGS_OTHER})

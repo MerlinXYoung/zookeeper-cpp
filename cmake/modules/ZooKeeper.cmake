@@ -13,6 +13,7 @@ endif()
 # would a process.
 macro(execute_jar)
   execute_process(COMMAND "${Java_JAVA_EXECUTABLE}" "-jar" ${ARGN})
+  # COMMAND_ECHO STDOUT)
 endmacro()
 
 # execute_java_cp
@@ -26,6 +27,7 @@ find_program(IVY_JAR
              NAMES ivy.jar
              PATHS "/usr/share/java"
             )
+
 if(NOT IVY_JAR)
   message(FATAL_ERROR "Could not find Apache Ivy")
 endif()

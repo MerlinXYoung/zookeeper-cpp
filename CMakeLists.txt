@@ -17,8 +17,8 @@ message(STATUS "Software Version: ${ZKPP_VERSION}")
 # CMake                                                                        #
 ################################################################################
 
-cmake_policy(VERSION 3.5)
-cmake_policy(SET CMP0037 OLD) # allow generation of "test" target
+# cmake_policy(VERSION 3.5)
+# cmake_policy(SET CMP0037 OLD) # allow generation of "test" target
 set(CMAKE_REQUIRED_QUIET YES) # tell check_include_file_cxx to keep quiet
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/")
@@ -44,7 +44,7 @@ if(NOT ${CMAKE_BUILD_TYPE} IN_LIST VALID_BUILD_TYPES)
 endif()
 message(STATUS "Configuration: ${CMAKE_BUILD_TYPE}")
 
-set(ZKPP_SERVER_VERSIONS "3.5.5;3.4.14"
+set(ZKPP_SERVER_VERSIONS "3.5.8"#"3.5.8;3.5.5;3.4.14"
     CACHE STRING "The ZooKeeper server versions to run tests against. The first in the list is the default."
    )
 
@@ -88,9 +88,16 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
 ################################################################################
 # External Libraries                                                           #
 ################################################################################
+set(Zookeeper_DIR /usr/local/zookeeper)
+# find_library(zookeeper_LIBRARIES zookeeper_mt
+# PATHS /usr/lib /usr/local/lib ${Zookeeper_DIR}/lib
+# )
+# set(ZKPP_LIB_DEPENDENCIES ${ZKPP_LIB_DEPENDENCIES} ${zookeeper_LIBRARIES})
 
-find_library(zookeeper_LIBRARIES zookeeper_mt)
-set(ZKPP_LIB_DEPENDENCIES ${ZKPP_LIB_DEPENDENCIES} ${zookeeper_LIBRARIES})
+find_package(Zookeeper REQUIRED MT)
+set(ZKPP_LIB_DEPENDENCIES ${ZKPP_LIB_DEPENDENCIES} ${Zookeeper_LIBRARY_MT})
+
+include_directories(${Zookeeper_INCLUDE_DIR})
 
 include_directories("${PROJECT_SOURCE_DIR}/src")
 
